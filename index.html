@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#07111f">
+  <meta name="description" content="Cofre Digital: projeto educativo de criptografia, hash SHA-256 e proteção de informações com Python.">
+  <title>Cofre Digital | Segurança da Informação</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#inicio">
+      <span class="brand-icon">⬡</span>
+      <span>COFRE<span class="brand-light">DIGITAL</span>
+        <small>LABORATÓRIO DE SEGURANÇA</small>
+      </span>
+    </a>
+    <nav class="navigation">
+      <a href="#conceitos">Conceitos</a>
+      <a href="#laboratorio">Laboratório</a>
+      <a href="#projeto">O projeto</a>
+    </nav>
+    <a class="nav-button" href="#laboratorio">Experimentar <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <div class="eyebrow"><span class="pulse"></span> PROJETO DE SEGURANÇA DIGITAL</div>
+        <h1>Suas informações.<br>Seu <span class="gradient-text">controle.</span></h1>
+        <p class="hero-description">
+          Descubra como a criptografia protege mensagens e como o hash
+          ajuda a verificar a integridade de informações digitais.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#laboratorio">Acessar laboratório <span>→</span></a>
+          <a class="button button-secondary" href="#conceitos">Explorar conceitos</a>
+        </div>
+        <div class="hero-proof">
+          <span><i class="proof-dot"></i> AES-GCM</span>
+          <span><i class="proof-dot"></i> SHA-256</span>
+          <span><i class="proof-dot"></i> Python</span>
+        </div>
+      </div>
+
+      <div class="security-visual" aria-label="Ilustração de um cofre digital">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="security-card">
+          <div class="card-top"><span>SECURE ENVIRONMENT</span><span class="live-dot"></span></div>
+          <div class="shield"><span>⬡</span><b>✓</b></div>
+          <div class="card-title">Proteção ativa</div>
+          <div class="card-subtitle">CAMADA DE SEGURANÇA DIGITAL</div>
+          <div class="data-line"><span>Criptografia</span><strong>AES-GCM</strong></div>
+          <div class="data-line"><span>Integridade</span><strong>SHA-256</strong></div>
+          <div class="data-line"><span>Derivação de chave</span><strong>PBKDF2</strong></div>
+          <div class="security-bar"><span></span></div>
+          <div class="card-footer">AMBIENTE DEMONSTRATIVO <span>● ONLINE</span></div>
+        </div>
+        <div class="floating-chip chip-top">⌘ &nbsp; DADOS PROTEGIDOS</div>
+        <div class="floating-chip chip-bottom">01 / SEGURANÇA DA INFORMAÇÃO</div>
+      </div>
+      <div class="hero-bottom"><span>01 — CONHECIMENTO</span><span>PROTEGENDO O MUNDO DIGITAL, UMA INFORMAÇÃO POR VEZ.</span></div>
+    </section>
+
+    <section class="metrics">
+      <div class="metric"><span class="metric-icon">⌘</span><div><strong>256 bits</strong><small>Resumo SHA-256</small></div></div>
+      <div class="metric"><span class="metric-icon">◇</span><div><strong>AES-GCM</strong><small>Criptografia autenticada</small></div></div>
+      <div class="metric"><span class="metric-icon">01</span><div><strong>100% educativo</strong><small>Aprenda praticando</small></div></div>
+    </section>
+
+    <section class="section concepts" id="conceitos">
+      <div class="section-heading">
+        <div><span class="eyebrow">FUNDAMENTOS ESSENCIAIS</span><h2>Entenda a proteção<br>por trás dos dados.</h2></div>
+        <p>Três conceitos fundamentais para compreender como as informações podem ser protegidas e verificadas.</p>
+      </div>
+      <div class="concept-grid">
+        <article class="concept-card">
+          <div class="concept-number">01 / CRIPTOGRAFIA</div>
+          <div class="concept-icon">⌑</div>
+          <h3>Transformar para proteger</h3>
+          <p>A criptografia transforma uma mensagem legível em conteúdo protegido. Com a chave correta, é possível recuperar a informação original.</p>
+          <div class="concept-tag">CONFIDENCIALIDADE</div>
+        </article>
+        <article class="concept-card featured-card">
+          <div class="concept-number">02 / HASH</div>
+          <div class="concept-icon">#</div>
+          <h3>Uma impressão digital</h3>
+          <p>O hash gera um resumo de tamanho definido. Uma pequena alteração no texto normalmente produz um resultado completamente diferente.</p>
+          <div class="concept-tag">INTEGRIDADE</div>
+        </article>
+        <article class="concept-card">
+          <div class="concept-number">03 / CHAVES</div>
+          <div class="concept-icon">⌑</div>
+          <h3>Controle de acesso</h3>
+          <p>As chaves criptográficas permitem proteger e recuperar informações. Elas precisam ser armazenadas com segurança.</p>
+          <div class="concept-tag">PROTEÇÃO DE DADOS</div>
+        </article>
+      </div>
+    </section>
+
+    <section class="lab-section" id="laboratorio">
+      <div class="section">
+        <div class="section-heading">
+          <div><span class="eyebrow">EXPERIMENTE NA PRÁTICA</span><h2>Laboratório digital<span class="accent">.</span></h2></div>
+          <p>Teste as ferramentas abaixo. Seus textos são processados localmente no navegador.</p>
+        </div>
+
+        <div class="lab-window">
+          <div class="lab-header">
+            <div class="window-dots"><i></i><i></i><i></i></div>
+            <span>COFRE DIGITAL / FERRAMENTAS</span>
+            <span class="lab-status"><i></i> AMBIENTE LOCAL</span>
+          </div>
+          <div class="lab-tabs" role="tablist">
+            <button class="lab-tab active" data-tab="encrypt" role="tab" aria-selected="true">01 &nbsp; Criptografar</button>
+            <button class="lab-tab" data-tab="decrypt" role="tab" aria-selected="false">02 &nbsp; Descriptografar</button>
+            <button class="lab-tab" data-tab="hash" role="tab" aria-selected="false">03 &nbsp; Gerar hash</button>
+          </div>
+
+          <div class="lab-panel" id="panel-encrypt">
+            <div class="panel-intro"><span class="panel-icon">⌑</span><div><h3>Criptografar mensagem</h3><p>Proteja seu texto com uma senha escolhida por você.</p></div></div>
+            <label for="encrypt-text">MENSAGEM ORIGINAL</label>
+            <textarea id="encrypt-text" rows="4" maxlength="10000" placeholder="Digite a mensagem que deseja proteger..."></textarea>
+            <div class="field-meta"><span>Seu texto não é enviado a um servidor.</span><span id="encrypt-count">0 / 10000</span></div>
+            <label for="encrypt-password">SENHA DE PROTEÇÃO</label>
+            <input id="encrypt-password" type="password" autocomplete="new-password" placeholder="Crie uma senha forte" minlength="8">
+            <p class="field-help">Utilize uma senha com pelo menos 8 caracteres. Para este projeto, prefira uma senha longa e exclusiva.</p>
+            <button class="button button-primary full-button" id="encrypt-button">Criptografar mensagem <span>→</span></button>
+            <div class="result-box hidden" id="encrypt-result" aria-live="polite">
+              <div class="result-heading"><strong>CONTEÚDO CRIPTOGRAFADO</strong><button class="copy-button" data-copy="encrypt-output">Copiar</button></div>
+              <textarea id="encrypt-output" rows="5" readonly></textarea>
+              <p class="result-note">Guarde o resultado e lembre-se da senha. O texto criptografado não contém a senha.</p>
+            </div>
+          </div>
+
+          <div class="lab-panel hidden" id="panel-decrypt">
+            <div class="panel-intro"><span class="panel-icon">⌑</span><div><h3>Descriptografar mensagem</h3><p>Recupere o conteúdo usando a senha original.</p></div></div>
+            <label for="decrypt-text">TEXTO CRIPTOGRAFADO</label>
+            <textarea id="decrypt-text" rows="5" placeholder="Cole aqui o resultado da criptografia..."></textarea>
+            <label for="decrypt-password">SENHA ORIGINAL</label>
+            <input id="decrypt-password" type="password" autocomplete="current-password" placeholder="Digite a senha usada anteriormente">
+            <button class="button button-primary full-button" id="decrypt-button">Descriptografar <span>→</span></button>
+            <div class="result-box hidden" id="decrypt-result" aria-live="polite">
+              <div class="result-heading"><strong>MENSAGEM RECUPERADA</strong><button class="copy-button" data-copy="decrypt-output">Copiar</button></div>
+              <textarea id="decrypt-output" rows="4" readonly></textarea>
+            </div>
+          </div>
+
+          <div class="lab-panel hidden" id="panel-hash">
+            <div class="panel-intro"><span class="panel-icon">#</span><div><h3>Gerador de hash SHA-256</h3><p>Gere o resumo digital e compare textos para estudar a integridade.</p></div></div>
+            <label for="hash-text">TEXTO PARA ANALISAR</label>
+            <textarea id="hash-text" rows="4" maxlength="10000" placeholder="Digite qualquer texto para gerar seu hash..."></textarea>
+            <button class="button button-primary full-button" id="hash-button">Gerar hash SHA-256 <span>→</span></button>
+            <div class="result-box hidden" id="hash-result" aria-live="polite">
+              <div class="result-heading"><strong>RESUMO SHA-256</strong><button class="copy-button" data-copy="hash-output">Copiar</button></div>
+              <textarea id="hash-output" rows="3" readonly></textarea>
+              <div class="hash-details"><span>ALGORITMO <strong>SHA-256</strong></span><span>SAÍDA <strong>256 BITS / 64 HEX</strong></span></div>
+            </div>
+            <div class="compare-box">
+              <h4>Verificar integridade</h4>
+              <p>Compare o hash original com o hash de um texto para verificar se correspondem.</p>
+              <label for="compare-hash">HASH ORIGINAL</label>
+              <input id="compare-hash" type="text" placeholder="Cole o hash SHA-256 esperado">
+              <button class="button button-secondary full-button" id="compare-button">Comparar hash</button>
+              <div id="compare-result" class="compare-result hidden" aria-live="polite"></div>
+            </div>
+          </div>
+          <div class="lab-disclaimer"><span>ⓘ</span><p>Ferramenta educativa. Os dados não são enviados a um servidor, mas permanecem temporariamente na página e na memória do navegador. Evite inserir informações pessoais ou confidenciais.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section process-section">
+      <div class="section-heading">
+        <div><span class="eyebrow">COMO FUNCIONA</span><h2>Da mensagem à<br>proteção digital.</h2></div>
+      </div>
+      <div class="process-grid">
+        <article><span>01</span><h3>Entrada</h3><p>O usuário fornece um texto e, quando necessário, uma senha.</p></article>
+        <article><span>02</span><h3>Processamento</h3><p>Algoritmos criptográficos transformam o texto ou geram seu hash.</p></article>
+        <article><span>03</span><h3>Resultado</h3><p>O programa apresenta o conteúdo protegido ou o resumo digital.</p></article>
+        <article><span>04</span><h3>Verificação</h3><p>O resultado pode ser comparado para observar as propriedades de cada técnica.</p></article>
+      </div>
+    </section>
+
+    <section class="project-section" id="projeto">
+      <div class="section project-layout">
+        <div><span class="eyebrow">SOBRE O TRABALHO</span><h2>Tecnologia aplicada<br>à segurança.</h2></div>
+        <div class="project-description">
+          <p>O Cofre Digital é um projeto educacional que explora conceitos de segurança da informação por meio da programação. Seu objetivo é demonstrar, de forma prática, a diferença entre criptografia e hash.</p>
+          <div class="tech-list"><span>Python</span><span>SHA-256</span><span>AES-GCM</span><span>PBKDF2</span><span>HTML + CSS + JS</span></div>
+          <a class="button button-secondary" href="README.md">Consultar documentação ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="brand" href="#inicio"><span class="brand-icon">⬡</span><span>COFRE<span class="brand-light">DIGITAL</span><small>PROJETO EDUCACIONAL</small></span></a>
+    <p>Aprender segurança é o primeiro passo para proteger informações.</p>
+    <a href="#inicio" class="back-top">VOLTAR AO TOPO ↑</a>
+    <div class="footer-bottom">© 2026 Cofre Digital · Desenvolvido para fins educacionais.</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/crypto.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
