@@ -1,5 +1,7 @@
-
+import base64
 import hashlib
+import json
+import os
 from pathlib import Path
 
 from cryptography.fernet import Fernet, InvalidToken
@@ -8,106 +10,150 @@ ARQUIVO_CHAVE = Path("chave.key")
 
 
 def carregar_chave():
-    """Carrega a chave existente ou cria uma nova."""
+    """Cria uma chave ou carrega a chave já existente."""
     if ARQUIVO_CHAVE.exists():
         return ARQUIVO_CHAVE.read_bytes()
 
     chave = Fernet.generate_key()
     ARQUIVO_CHAVE.write_bytes(chave)
+    try:
+        os.chmod(ARQUIVO_CHAVE, 0o600)
+    except OSError:
+        pass
+
     return chave
 
 
 def criptografar():
-    mensagem = input("\nDigite a mensagem que deseja proteger: ")
+    mensagem = input("Digite a mensagem: ")
 
     if not mensagem:
         print("A mensagem não pode estar vazia.")
         return
 
-    chave = carregar_chave()
-    cofre = Fernet(chave)
+    senha = input("Crie uma senha com pelo menos 8 caracteres: ")
 
-    mensagem_criptografada = cofre.encrypt(
-        mensagem.encode("utf-8")
+    if len(senha) < 8:
+        print("A senha precisa ter pelo menos 8 caracteres.")
+        return
+
+    salt = os.urandom(16)
+    chave_base = hashlib.pbkdf2_hmac(
+        "sha256",
+        senha.encode("utf-8"),
+        salt,
+        310000,
+        dklen=32,
     )
 
-    print("\nMensagem criptografada:")
-    print(mensagem_criptografada.decode("utf-8"))
+    chave = base64.urlsafe_b64encode(chave_base)
+    cofre = Fernet(chave)
+    conteudo = cofre.encrypt(mensagem.encode("utf-8"))
+
+    pacote = {
+        "version": 1,
+        "algorithm": "Fernet",
+        "kdf": "PBKDF2-SHA256",
+        "iterations": 310000,
+        "salt": base64.b64encode(salt).decode("ascii"),
+        "data": conteudo.decode("ascii"),
+    }
+
+    print("\nMensagem protegida:")
+    print(json.dumps(pacote, ensure_ascii=False))
 
 
 def descriptografar():
-    mensagem = input(
-        "\nCole a mensagem criptografada: "
-    ).strip()
-
-    if not mensagem:
-        print("Digite uma mensagem criptografada.")
-        return
+    texto = input("Cole o pacote criptografado: ")
+    senha = input("Digite a senha original: ")
 
     try:
-        chave = carregar_chave()
+        pacote = json.loads(texto)
+
+        if (
+            pacote.get("version") != 1
+            or pacote.get("algorithm") != "Fernet"
+            or pacote.get("kdf") != "PBKDF2-SHA256"
+            or pacote.get("iterations") != 310000
+        ):
+            raise ValueError("Formato não reconhecido.")
+
+        salt = base64.b64decode(pacote["salt"], validate=True)
+
+        if len(salt) != 16:
+            raise ValueError("Salt inválido.")
+
+        chave_base = hashlib.pbkdf2_hmac(
+            "sha256",
+            senha.encode("utf-8"),
+            salt,
+            310000,
+            dklen=32,
+        )
+
+        chave = base64.urlsafe_b64encode(chave_base)
         cofre = Fernet(chave)
 
-        mensagem_original = cofre.decrypt(
-            mensagem.encode("utf-8")
+        original = cofre.decrypt(
+            pacote["data"].encode("ascii")
         )
 
         print("\nMensagem original:")
-        print(mensagem_original.decode("utf-8"))
+        print(original.decode("utf-8"))
 
-    except (InvalidToken, ValueError):
-        print(
-            "\nNão foi possível descriptografar. "
-            "Verifique a mensagem e a chave."
-        )
+    except (
+        InvalidToken,
+        ValueError,
+        KeyError,
+        TypeError,
+        json.JSONDecodeError,
+        UnicodeDecodeError,
+    ):
+        print("Não foi possível descriptografar.")
+        print("Confira o pacote e a senha.")
 
 
 def gerar_hash():
-    mensagem = input(
-        "\nDigite o texto para gerar o hash: "
-    )
-
-    hash_sha256 = hashlib.sha256(
-        mensagem.encode("utf-8")
+    texto = input("Digite o texto: ")
+    resultado = hashlib.sha256(
+        texto.encode("utf-8")
     ).hexdigest()
 
     print("\nHash SHA-256:")
-    print(hash_sha256)
-    print("\nO hash não permite recuperar o texto original.")
+    print(resultado)
 
 
-def verificar_integridade():
-    mensagem = input(
-        "\nDigite o texto que deseja verificar: "
-    )
+def verificar_hash():
+    texto = input("Digite o texto que deseja verificar: ")
+    esperado = input("Cole o hash original: ").strip().lower()
 
-    hash_informado = input(
-        "Cole o hash original: "
-    ).strip().lower()
+    if len(esperado) != 64 or any(
+        caractere not in "0123456789abcdef"
+        for caractere in esperado
+    ):
+        print("O hash informado não tem formato SHA-256 válido.")
+        return
 
-    hash_calculado = hashlib.sha256(
-        mensagem.encode("utf-8")
+    calculado = hashlib.sha256(
+        texto.encode("utf-8")
     ).hexdigest()
 
-    if hash_calculado == hash_informado:
-        print("\nResultado: o hash corresponde ao texto.")
+    if hashlib.compare_digest(calculado, esperado):
+        print("Os hashes correspondem.")
     else:
-        print(
-            "\nResultado: o hash não corresponde. "
-            "O texto pode ter sido alterado."
-        )
+        print("Os hashes são diferentes.")
 
 
 def menu():
     while True:
-        print("\n" + "=" * 42)
-        print("       COFRE DIGITAL")
+        print("\n" + "=" * 44)
+        print("           COFRE DIGITAL")
         print(" Proteção de Informações com Python")
-        print("=" * 42)
+        print("=" * 44)
         print("1 - Criptografar mensagem")
         print("2 - Descriptografar mensagem")
         print("3 - Gerar hash SHA-256")
-        print("4 - Verificar integridade do texto")
+        print("4 - Verificar integridade")
         print("0 - Sair")
 
         opcao = input("\nEscolha uma opção: ").strip()
@@ -119,12 +165,12 @@ def menu():
         elif opcao == "3":
             gerar_hash()
         elif opcao == "4":
-            verificar_integridade()
+            verificar_hash()
         elif opcao == "0":
-            print("\nCofre Digital encerrado. Até mais!")
+            print("Programa encerrado.")
             break
         else:
-            print("\nOpção inválida. Tente novamente.")
+            print("Opção inválida.")
 
 
 if __name__ == "__main__":
