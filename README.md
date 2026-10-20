@@ -1,0 +1,1 @@
+# criptografia-e-hash
